@@ -1,8 +1,0 @@
-﻿  installprograms.cpp
-  toolbox.cpp
-  Generating code
-  136 of 363 functions (37.5%) were compiled, the rest were copied from previous compilation.
-    9 functions were new in current compilation
-    71 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  SteavenToolBox.vcxproj -> C:\Users\Omar Hany Kasban\Documents\GitHub\SteavenToolBox\x64\Release\SteavenToolBox.exe
