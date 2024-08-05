@@ -150,9 +150,6 @@ function Install-Topgrade {
 }
 
 # Call the functions where needed
-Install-Chocolatey
-Install-Winget
-Install-Scoop
 Install-NuGet
 Install-WindowsUpdateCli
 Install-Topgrade
