@@ -6,6 +6,9 @@
 #include "toolbox.h"
 
 void downloadAndExecuteRuntime() {
+    InstallChocolatey();
+    InstallWinget();
+    InstallScoop();
     RuntimePowerShell();
 }
 

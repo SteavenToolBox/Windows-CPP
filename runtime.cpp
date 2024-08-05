@@ -44,26 +44,26 @@ void RunAsAdmin() {
 
 void InstallChocolatey() {
     std::cout << "Checking if Chocolatey is installed..." << std::endl;
-    if (system("choco -v") != 0) {
-        std::cout << "Chocolatey is not installed. Installing Chocolatey..." << std::endl;
-        system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Set-ExecutionPolicy Bypass -Scope Process -Force; "
-            "[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; "
-            "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); "
-            "choco feature enable -n=allowGlobalConfirmation -y\"");
+    if (system("choco -v >nul 2>&1") != 0) {
+        std::cout << "Chocolatey is not installed. Installing Chocolatey..." << std::endl;\
+        system("powershell -Command \"Set - ExecutionPolicy Bypass - Scope CurrentUser - Force\"");
+        system("powershell -Command \"Invoke-WebRequest -Uri https://chocolatey.org/install.ps1 -OutFile C:\\Windows\\Temp\\chocolatey-installer.ps1\"");
+        system("powershell -Command \"C:\\Windows\\Temp\\chocolatey-installer.ps1\"");
+        system("powershell -Command \"Remove-Item C:\\Windows\\Temp\\chocolatey-installer.ps1\"");
+        system("choco feature enable -n=allowGlobalConfirmation -y");
     }
     else {
         std::cout << "Chocolatey is already installed." << std::endl;
     }
-
     std::cout << "Checking if ChocolateyGUI is installed..." << std::endl;
-    if (system("chocolateygui -v") != 0) {
+    if (system("chocolateygui -v>nul 2>&1") != 0) {
         std::cout << "ChocolateyGUI is not installed. Installing ChocolateyGUI..." << std::endl;
         system("choco install chocolateygui -y");
     }
     else {
         std::cout << "ChocolateyGUI is already installed." << std::endl;
         std::cout << "Killing ChocolateyGUI process..." << std::endl;
-        system("taskkill /IM chocolateygui.exe /F");
+        system("taskkill /IM chocolateygui.exe /F>nul 2>&1");
     }
 }
 
@@ -80,35 +80,22 @@ void InstallWinget() {
 
 void InstallScoop() {
     std::cout << "Checking if Scoop is installed..." << std::endl;
-
-    // Check if Scoop is installed by verifying if the command is available
     if (system("scoop -v >nul 2>&1") != 0) {
         std::cout << "Scoop is not installed. Installing Scoop..." << std::endl;
-
-        // Construct the PowerShell command string
-        std::string command = R"(powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process powershell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command \"iex \"& { $(irm get.scoop.sh) }\"\"' -Verb RunAs")";
-
-        // Execute the command
-        int installResult = system(command.c_str());
-
-        if (installResult == 0) {
-            std::cout << "Scoop installed successfully." << std::endl;
-
-            // Install required packages
-            system("scoop install git");
-            system("scoop bucket add extras");
-            system("scoop install aria2 wget git grep gsudo");
-            std::cout << "Aria2, Wget, and Git are now installed." << std::endl;
-        }
-        else {
-            std::cerr << "Failed to install Scoop." << std::endl;
-        }
+        system("powershell -Command \"Set - ExecutionPolicy Bypass - Scope CurrentUser - Force\"");
+        system("powershell -Command \"Invoke-WebRequest -Uri https://get.scoop.sh -OutFile C:\\Windows\\Temp\\get.scoop.ps1\"");
+        system("powershell -Command \"C:\\Windows\\Temp\\get.scoop.ps1 -RunAsAdmin\"");
+        system("powershell -Command \"Remove-Item C:\\Windows\\Temp\\get.scoop.ps1\"");
     }
     else {
-        std::cout << "Scoop is already installed." << std::endl;
+        std::cout << "scoop is already installed." << std::endl;
     }
-}
 
+    system("powershell -Command \"scoop install git\"");
+    system("powershell -Command \"scoop bucket add extras\"");
+    system("powershell -Command \"scoop install aria2 wget git grep gsudo\"");
+    std::cout << "Aria2, Wget, and Git are now installed." << std::endl;
+}
 
 void InstallNuGet() {
     std::cout << "Checking if NuGet is installed..." << std::endl;
