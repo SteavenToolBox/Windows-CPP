@@ -9,6 +9,7 @@
 #include "repairdevices.h"
 #include "repairwindows.h"
 #include "installprograms.h"
+#include "undo.h"
 
 
 
@@ -22,14 +23,15 @@ void SteavenToolBoxMainMenu() {
         std::cout << "Windows 10 and Windows 11!" << std::endl;
         std::cout << "=======================================================================" << std::endl;
         std::cout << "-----------------------------------------------------------------------" << std::endl;
-        std::cout << "1. Optimize Windows" << std::endl;
-        std::cout << "2. Update All Installed Apps to the Latest Versions" << std::endl;
-        std::cout << "3. Install Features, Programs, and Apps" << std::endl;
-        std::cout << "4. Windows Update Fix" << std::endl;
-        std::cout << "5. Crack Windows and Office (Use it at your own risk)" << std::endl;
-        std::cout << "6. Uninstall Apps" << std::endl;
-        std::cout << "7. Repair Windows" << std::endl;
-        std::cout << "8. Repair Broken Storage Disks" << std::endl;
+        std::cout << "1. Tweak Windows" << std::endl;
+        std::cout << "2. Undo Tweaks made by 1" << std::endl;
+        std::cout << "3. Update All Installed Apps to the Latest Versions" << std::endl;
+        std::cout << "4. Install Features, Programs, and Apps" << std::endl;
+        std::cout << "5. Windows Update Fix" << std::endl;
+        std::cout << "6. Crack Windows and Office (Use it at your own risk)" << std::endl;
+        std::cout << "7. Uninstall Apps" << std::endl;
+        std::cout << "8. Repair Windows" << std::endl;
+        std::cout << "9. Repair Broken Storage Disks" << std::endl;
         std::cout << "0. Go Back" << std::endl;
         std::cout << "-----------------------------------------------------------------------" << std::endl;
         std::cout << "Type the number: ";
@@ -42,31 +44,36 @@ void SteavenToolBoxMainMenu() {
         }
         else if (choice == "2") {
             clearScreen();
-            UpdateWindowsUsingTopgrade();
+            UndoWindows(); // Corrected the function name
+            system("pause");
         }
         else if (choice == "3") {
             clearScreen();
-            InstallPrograms();
+            UpdateWindowsUsingTopgrade();
         }
         else if (choice == "4") {
+            clearScreen();
+            InstallPrograms();
+        }
+        else if (choice == "5") {
             std::cout << "Fixing Windows Update..." << std::endl;
             std::cout << "Went to fix Windows update" << std::endl; // Replace with actual fix code
             system("pause");
         }
-        else if (choice == "5") {
+        else if (choice == "6") {
             crackWindowsAndOffice(); // Call crack function
         }
-        else if (choice == "6") {
+        else if (choice == "7") {
             std::cout << "Uninstalling apps..." << std::endl;
             std::cout << "Went to uninstall apps" << std::endl; // Replace with actual uninstall code
             system("pause");
         }
-        else if (choice == "7") {
+        else if (choice == "8") {
             std::cout << "Repairing Windows..." << std::endl;
             RepairWindows();
             system("pause");
         }
-        else if (choice == "8") {
+        else if (choice == "9") {
             clearScreen();
             std::cout << "Repairing Broken Storage Disks..." << std::endl;
             RepairDrives();

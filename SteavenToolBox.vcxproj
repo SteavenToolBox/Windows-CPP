@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="crackwindows.cpp" />
+    <ClCompile Include="general.cpp" />
     <ClCompile Include="installprograms.cpp" />
     <ClCompile Include="optmiusewindows.cpp" />
     <ClCompile Include="repairdevices.cpp" />
@@ -135,10 +136,12 @@
     <ClCompile Include="runtime.cpp" />
     <ClCompile Include="SteavenToolBox.cpp" />
     <ClCompile Include="toolbox.cpp" />
+    <ClCompile Include="undo.cpp" />
     <ClCompile Include="updatewindows.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crackwindows.h" />
+    <ClInclude Include="general.h" />
     <ClInclude Include="installprograms.h" />
     <ClInclude Include="optmiusewindows.h" />
     <ClInclude Include="repairdevices.h" />
@@ -146,6 +149,7 @@
     <ClInclude Include="runtime.h" />
     <ClInclude Include="SteavenToolBox.h" />
     <ClInclude Include="toolbox.h" />
+    <ClInclude Include="undo.h" />
     <ClInclude Include="updatewindows.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

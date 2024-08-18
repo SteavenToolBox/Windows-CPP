@@ -1,52 +1,7 @@
 #include <windows.h>
 #include <iostream>
 #include <string>
-
-void SetRegistryValue(HKEY hKeyRoot, const std::wstring& subKey, const std::wstring& valueName, DWORD data) {
-    HKEY hKey;
-    if (RegOpenKeyEx(hKeyRoot, subKey.c_str(), 0, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS) {
-        RegSetValueEx(hKey, valueName.c_str(), 0, REG_DWORD, reinterpret_cast<const BYTE*>(&data), sizeof(data));
-        RegCloseKey(hKey);
-    }
-}
-
-void SetRegistryString(HKEY hKeyRoot, const std::wstring& subKey, const std::wstring& valueName, const std::wstring& data) {
-    HKEY hKey;
-    if (RegOpenKeyEx(hKeyRoot, subKey.c_str(), 0, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS) {
-        RegSetValueEx(hKey, valueName.c_str(), 0, REG_SZ, reinterpret_cast<const BYTE*>(data.c_str()), (data.size() + 1) * sizeof(wchar_t));
-        RegCloseKey(hKey);
-    }
-}
-
-void ExecuteCommand(const std::wstring& command) {
-    _wsystem(command.c_str());
-}
-
-void StopAndDisableService(const std::wstring& serviceName) {
-    SC_HANDLE scManager = OpenSCManager(nullptr, nullptr, SC_MANAGER_ALL_ACCESS);
-    if (scManager) {
-        SC_HANDLE service = OpenService(scManager, serviceName.c_str(), SERVICE_STOP | SERVICE_CHANGE_CONFIG);
-        if (service) {
-            SERVICE_STATUS status;
-            ControlService(service, SERVICE_CONTROL_STOP, &status);
-            ChangeServiceConfig(service, SERVICE_NO_CHANGE, SERVICE_DISABLED, SERVICE_NO_CHANGE, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
-            CloseServiceHandle(service);
-        }
-        CloseServiceHandle(scManager);
-    }
-}
-
-void SetRegistryBinaryValue(HKEY hKeyRoot, const std::wstring& subKey, const std::wstring& valueName, const BYTE* data, DWORD dataSize) {
-    HKEY hKey;
-    LONG result = RegOpenKeyEx(hKeyRoot, subKey.c_str(), 0, KEY_SET_VALUE, &hKey);
-    if (result == ERROR_SUCCESS) {
-        result = RegSetValueEx(hKey, valueName.c_str(), 0, REG_BINARY, data, dataSize);
-        RegCloseKey(hKey);
-    }
-    if (result != ERROR_SUCCESS) {
-        std::wcerr << L"Failed to set registry value: " << valueName << L" with error code: " << result << std::endl;
-    }
-}
+#include "general.h"
 
 void OptmiuseWindows() {
     std::wcout << L"Disabling Web Search and Cortana\n";
@@ -239,11 +194,6 @@ void OptmiuseWindows() {
     
     std::wcout << L"Enabling Periodic Backup\n";
     SetRegistryValue(HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Configuration Manager", L"EnablePeriodicBackup", 1);
-
-    std::wcout << L"Disabling Shortcut Arrow Icon\n";
-    BYTE binaryData[] = { 0x00, 0x00, 0x00, 0x00 };
-    SetRegistryBinaryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer", L"link", binaryData, sizeof(binaryData));
-    SetRegistryBinaryValue(HKEY_USERS, L".DEFAULT\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer", L"link", binaryData, sizeof(binaryData));
     
     std::wcout << L"Enabling Expressive Input Shell Hotkey\n";
     SetRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Input\\Settings", L"EnableExpressiveInputShellHotkey", 1);
@@ -285,13 +235,6 @@ void OptmiuseWindows() {
     SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{36eef7db-88ad-4e81-ad49-0e313f0c35f8}\\DefaultIcon", L"", L"shell32.dll,-47");
     SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{36eef7db-88ad-4e81-ad49-0e313f0c35f8}\\Shell\\Open\\Command", L"", L"control.exe /name Microsoft.WindowsUpdate");
     SetRegistryString(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ControlPanel\\NameSpace\\{36eef7db-88ad-4e81-ad49-0e313f0c35f8}", L"", L"Windows Update");
-
-    std::wcout << L"Disabling Shortcut Arrow Icon for Current User\n";
-    BYTE zeroData[] = { 0x00, 0x00, 0x00, 0x00 };
-    SetRegistryBinaryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer", L"link", zeroData, sizeof(zeroData));
-
-    std::wcout << L"Disabling Shortcut Arrow Icon for Default User\n";
-    SetRegistryBinaryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer", L"link", zeroData, sizeof(zeroData));
 
     std::wcout << L"Disabling Tailored Experiences with Diagnostic Data for Current User\n";
     SetRegistryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent", L"DisableTailoredExperiencesWithDiagnosticData", 1);
