@@ -436,5 +436,40 @@ void UndoWindows() {
     std::wcout << L"Removing the make of Windows use UTC time to fix Linux dual boot\n";
     DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\TimeZoneInformation", L"value");
 
+    std::wcout << L"Removing the disable of Visual Studio Telemtery\n";
+    DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\WOW6432Node\\Microsoft\\VSCommon\\15.0\\SQM", L"OptIn");
+    DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\WOW6432Node\\Microsoft\\VSCommon\\16.0\\SQM", L"OptIn");
+    DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\WOW6432Node\\Microsoft\\VSCommon\\17.0\\SQM", L"OptIn");
+    DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\VSCommon\\15.0\\SQM", L"OptIn");
+    DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\VSCommon\\16.0\\SQM", L"OptIn");
+    DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\VSCommon\\17.0\\SQM", L"OptIn");
+    DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"Software\\Policies\\Microsoft\\VisualStudio\\SQM", L"OptIn");
+
+    std::wcout << L"Removing the disable of Office 365 Telemtery\n";
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Policies\\Microsoft\\Office\\16.0\\Common", L"QMEnable");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Policies\\Microsoft\\Office\\16.0\\Common", L"UpdateReliabilityData");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Policies\\Microsoft\\Office\\16.0\\Common\\Feedback", L"IncludeEmail");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Policies\\Microsoft\\Office\\16.0\\Common\\Feedback", L"Enabled");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Policies\\Microsoft\\Office\\16.0\\Common\\Feedback", L"SurveyEnabled");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Policies\\Microsoft\\Office\\16.0\\Common\\Privacy", L"DisconnectedState");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Policies\\Microsoft\\Office\\16.0\\Common\\Privacy", L"UserContentDisabled");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Policies\\Microsoft\\Office\\16.0\\Common\\Privacy", L"DownloadContentDisabled");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Policies\\Microsoft\\Office\\16.0\\Common\\Privacy", L"ControllerConnectedServicesEnabled");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Policies\\Microsoft\\Office\\16.0\\osm", L"EnableFileObfuscation");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Policies\\Microsoft\\Office\\16.0\\osm", L"EnableUpload");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Policies\\Microsoft\\Office\\Common\\ClientTelemetry", L"SendTelemetry");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\16.0\\Common", L"QMEnable");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\16.0\\Common", L"UpdateReliabilityData");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\16.0\\Common\\Feedback", L"IncludeEmail");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\16.0\\Common\\Feedback", L"Enabled");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\16.0\\Common\\Feedback", L"SurveyEnabled");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\16.0\\Common\\Privacy", L"DisconnectedState");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\16.0\\Common\\Privacy", L"UserContentDisabled");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\16.0\\Common\\Privacy", L"DownloadContentDisabled");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\16.0\\Common\\Privacy", L"ControllerConnectedServicesEnabled");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\16.0\\osm", L"EnableFileObfuscation");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\16.0\\osm", L"EnableUpload");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\Common\\ClientTelemetry", L"SendTelemetry");
+
     std::wcout << L"Finished undoing optimization.\n";
 }
