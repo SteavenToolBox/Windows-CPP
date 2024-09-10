@@ -434,8 +434,7 @@ void OptmiuseWindows() {
     StopAndDisableService(L"DiagTrack");
 
     std::wcout << L"Making Windows use UTC time to fix Linux dual boot\n";
-
-    SetRegistryValue(HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\TimeZoneInformation", L"value", 0);
+    SetRegistryValue(HKEY_LOCAL_MACHINE, L"SYSTEM\\CurrentControlSet\\Control\\TimeZoneInformation", L"RealTimeIsUniversal", 1);
 
     std::wcout << L"Disabling Visual Studio Telemtery\n";
     SetRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\WOW6432Node\\Microsoft\\VSCommon\\15.0\\SQM", L"OptIn", 0);
