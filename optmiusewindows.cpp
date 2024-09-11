@@ -471,5 +471,8 @@ void OptmiuseWindows() {
     SetRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\16.0\\osm", L"EnableUpload", 0);
     SetRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\Common\\ClientTelemetry", L"SendTelemetry", 3);
 
+    std::wcout << L"Enabling verbose status messages in Windows\n";
+    SetRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", L"VerboseStatus", 1);
+
     std::wcout << L"Finished optimization.\n";
 }

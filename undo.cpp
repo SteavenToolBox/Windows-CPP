@@ -471,5 +471,8 @@ void UndoWindows() {
     DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\16.0\\osm", L"EnableUpload");
     DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Policies\\Microsoft\\Office\\Common\\ClientTelemetry", L"SendTelemetry");
 
+    std::wcout << L"Deleting the enable of verbose status messages in Windows\n";
+    DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", L"VerboseStatus");
+
     std::wcout << L"Finished undoing optimization.\n";
 }
