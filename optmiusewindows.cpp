@@ -474,5 +474,8 @@ void OptmiuseWindows() {
     std::wcout << L"Enabling verbose status messages in Windows\n";
     SetRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", L"VerboseStatus", 1);
 
+    std::wcout << L"Disabling Windows 11's Recall\n";
+    SetRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI", L"DisableAIDataAnalysis", 1);
+
     std::wcout << L"Finished optimization.\n";
 }

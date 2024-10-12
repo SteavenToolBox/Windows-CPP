@@ -474,5 +474,9 @@ void UndoWindows() {
     std::wcout << L"Deleting the enable of verbose status messages in Windows\n";
     DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", L"VerboseStatus");
 
+    std::wcout << L"Deleting the disable of Windows 11's Recall\n";
+    DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI", L"DisableAIDataAnalysis");
+
+
     std::wcout << L"Finished undoing optimization.\n";
 }
