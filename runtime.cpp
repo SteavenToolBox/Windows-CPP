@@ -47,6 +47,7 @@ void InstallChocolatey() {
     if (system("choco -v >nul 2>&1") != 0) {
         std::cout << "Chocolatey is not installed. Installing Chocolatey..." << std::endl;\
         system("powershell -Command \"Set - ExecutionPolicy Bypass - Scope CurrentUser - Force\"");
+        system("powershell -Command \"Set-ExecutionPolicy Bypass -Scope CurrentUser -Force\"");
         system("powershell -Command \"Invoke-WebRequest -Uri https://chocolatey.org/install.ps1 -OutFile C:\\Windows\\Temp\\chocolatey-installer.ps1\"");
         system("powershell -Command \"C:\\Windows\\Temp\\chocolatey-installer.ps1\"");
         system("powershell -Command \"Remove-Item C:\\Windows\\Temp\\chocolatey-installer.ps1\"");
@@ -83,6 +84,7 @@ void InstallScoop() {
     if (system("scoop -v >nul 2>&1") != 0) {
         std::cout << "Scoop is not installed. Installing Scoop..." << std::endl;
         system("powershell -Command \"Set - ExecutionPolicy Bypass - Scope CurrentUser - Force\"");
+        system("powershell -Command \"Set-ExecutionPolicy Bypass -Scope CurrentUser -Force\"");
         system("powershell -Command \"Invoke-WebRequest -Uri https://get.scoop.sh -OutFile C:\\Windows\\Temp\\get.scoop.ps1\"");
         system("powershell -Command \"C:\\Windows\\Temp\\get.scoop.ps1 -RunAsAdmin\"");
         system("powershell -Command \"Remove-Item C:\\Windows\\Temp\\get.scoop.ps1\"");

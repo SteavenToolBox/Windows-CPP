@@ -138,15 +138,6 @@ function Install-Topgrade {
         winget install -e --id topgrade-rs.topgrade
         Write-Host "Topgrade installation complete."
     }
-    
-    # Edit the configuration file to enable winget regardless of installation status
-    $configPath = Join-Path $env:APPDATA "topgrade.toml"
-    if (Test-Path $configPath) {
-        (Get-Content $configPath) -replace '# enable_winget = true', 'enable_winget = true' | Set-Content $configPath
-        Write-Host "Updated topgrade.toml to enable winget."
-    } else {
-        Write-Host "Configuration file not found at $configPath"
-    }
 }
 
 # Call the functions where needed
