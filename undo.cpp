@@ -15,6 +15,12 @@ void UndoWindows() {
     DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Policies\\Microsoft\\Windows\\Explorer", L"DisableSearchBoxSuggestions");
     DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search", L"BingSearchEnabled");
     DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Search", L"BingSearchEnabled");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Search", L"CortanaConsent");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\Search", L"CortanaConsent");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Search", L"BingSearchEnabled");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Search", L"AllowSearchToUseLocation");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\Search", L"BingSearchEnabled");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\Search", L"AllowSearchToUseLocation");
 
     std::wcout << L"Removing the hide Cortana From Taskbar\n";
     DeleteRegistryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", L"ShowCortanaButton");
@@ -172,7 +178,11 @@ void UndoWindows() {
     std::wcout << L"Removing the disable of Subscribed Content 314563\n";
     DeleteRegistryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"SubscribedContent-314563Enabled");
     DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"SubscribedContent-314563Enabled");
-    
+
+    std::wcout << L"Removing the disable of Subscribed Content 353698\n";
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"SubscribedContent-353698Enabled");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"SubscribedContent-353698Enabled");
+
     std::wcout << L"Removing the disable of Soft Landing\n";
     DeleteRegistryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"SoftLandingEnabled");
     DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"SoftLandingEnabled");
@@ -184,6 +194,7 @@ void UndoWindows() {
     std::wcout << L"Removing the disable of Silent Installed Apps\n";
     DeleteRegistryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"SilentInstalledAppsEnabled");
     DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"SilentInstalledAppsEnabled");
+
     
     std::wcout << L"Removing the disable of Advertising Info\n";
     DeleteRegistryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo", L"Enabled");
@@ -477,6 +488,55 @@ void UndoWindows() {
     std::wcout << L"Deleting the disable of Windows 11's Recall\n";
     DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI", L"DisableAIDataAnalysis");
 
+    std::wcout << L"Deleting the disable of Windows 10 1809's ads\n";
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\LockScreen", L"DoNotShowLockScreenAds");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Privacy", L"AllowTimeline");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"ContentDeliveryEnabled");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\LockScreen", L"DoNotShowLockScreenAds");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy", L"AllowTimeline");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"ContentDeliveryEnabled");
+
+    std::wcout << L"Deleting the disable of Windows 10/11 lock screen ads\n";
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"RotatingLockScreenEnabled");
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"RotatingLockScreenOverlayEnabled");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"RotatingLockScreenEnabled");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"RotatingLockScreenOverlayEnabled");
+
+    std::wcout << L"Deleting the disable of Windows 10/11 start menu ads\n";
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", L"Start_IrisRecommendations");
+    DeleteRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", L"Start_IrisRecommendations");
+
+    std::wcout << L"Disable numlock caps lock and scroll lock on startup\n";
+    SetRegistryValue(HKEY_CURRENT_USER, L"Control Panel\\Keyboard", L"InitialKeyboardIndicators", 2147483648);
+    SetRegistryValue(HKEY_USERS, L".DEFAULT\\Control Panel\\Keyboard", L"InitialKeyboardIndicators", 2147483648);
+
+    std::wcout << L"Removing Classic User Accounts from control panel\n";
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{EDEEBE61-B85A-46B1-834B-E545EF04E947}", L"InfoTip");
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{EDEEBE61-B85A-46B1-834B-E545EF04E947}", L"System.ControlPanel.Category");
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{EDEEBE61-B85A-46B1-834B-E545EF04E947}\\DefaultIcon", L"");
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{EDEEBE61-B85A-46B1-834B-E545EF04E947}\\Shell\\Open\\command", L"");
+    DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ControlPanel\\NameSpace\\{EDEEBE61-B85A-46B1-834B-E545EF04E947}", L"");
+
+    std::wcout << L"Removing Classic Color and Appearance from control panel\n";
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{6520164E-C532-43A3-AFBE-3100A02AD7B8}", L"InfoTip");
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{6520164E-C532-43A3-AFBE-3100A02AD7B8}", L"System.ApplicationName");
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{6520164E-C532-43A3-AFBE-3100A02AD7B8}", L"System.ControlPanel.Category");
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{6520164E-C532-43A3-AFBE-3100A02AD7B8}", L"System.Software.TasksFileUrl");
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{6520164E-C532-43A3-AFBE-3100A02AD7B8}\\DefaultIcon", L"");
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{6520164E-C532-43A3-AFBE-3100A02AD7B8}\\Shell\\Open\\command", L"");
+    DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ControlPanel\\NameSpace\\{6520164E-C532-43A3-AFBE-3100A02AD7B8}", L"");
+
+    std::wcout << L"Removing Desktop Background from control panel\n";
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{EF8B3A34-C604-472B-A54D-E6A45FE0DC9D}", L"InfoTip");
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{EF8B3A34-C604-472B-A54D-E6A45FE0DC9D}", L"System.ApplicationName");
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{EF8B3A34-C604-472B-A54D-E6A45FE0DC9D}", L"System.ControlPanel.Category");
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{EF8B3A34-C604-472B-A54D-E6A45FE0DC9D}", L"System.Software.TasksFileUrl");
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{EF8B3A34-C604-472B-A54D-E6A45FE0DC9D}\\DefaultIcon", L"");
+    DeleteRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{EF8B3A34-C604-472B-A54D-E6A45FE0DC9D}\\Shell\\Open\\command", L"");
+    DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ControlPanel\\NameSpace\\{EF8B3A34-C604-472B-A54D-E6A45FE0DC9D}", L"");
+
+    std::wcout << L"Adding -shortcut to new shortcuts\n";
+    DeleteRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Explorer", L"link");
 
     std::wcout << L"Finished undoing optimization.\n";
 }

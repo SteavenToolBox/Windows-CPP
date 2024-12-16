@@ -15,6 +15,12 @@ void OptmiuseWindows() {
     SetRegistryValue(HKEY_USERS, L".DEFAULT\\Policies\\Microsoft\\Windows\\Explorer", L"DisableSearchBoxSuggestions", 1);
     SetRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search", L"BingSearchEnabled", 0);
     SetRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Search", L"BingSearchEnabled", 0);
+    SetRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Search", L"CortanaConsent", 0);
+    SetRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\Search", L"CortanaConsent", 0);
+    SetRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Search", L"BingSearchEnabled", 0);
+    SetRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Search", L"AllowSearchToUseLocation", 0);
+    SetRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\Search", L"BingSearchEnabled", 0);
+    SetRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\Search", L"AllowSearchToUseLocation", 0);
 
     std::wcout << L"Hiding Cortana From Taskbar\n";
     SetRegistryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", L"ShowCortanaButton", 0);
@@ -171,6 +177,10 @@ void OptmiuseWindows() {
     std::wcout << L"Disabling Subscribed Content 314563\n";
     SetRegistryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"SubscribedContent-314563Enabled", 0);
     SetRegistryValue(HKEY_USERS, L".DEFAULT\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"SubscribedContent-314563Enabled", 0);
+
+    std::wcout << L"Disabling Subscribed Content 353698\n";
+    SetRegistryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"SubscribedContent-353698Enabled", 0);
+    SetRegistryValue(HKEY_USERS, L".DEFAULT\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"SubscribedContent-353698Enabled", 0);
     
     std::wcout << L"Disabling Soft Landing\n";
     SetRegistryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"SoftLandingEnabled", 0);
@@ -476,6 +486,57 @@ void OptmiuseWindows() {
 
     std::wcout << L"Disabling Windows 11's Recall\n";
     SetRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsAI", L"DisableAIDataAnalysis", 1);
+
+    std::wcout << L"Disabling Windows 10 1809's ads\n";
+    SetRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\LockScreen", L"DoNotShowLockScreenAds", 1);
+    SetRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Privacy", L"AllowTimeline", 0);
+    SetRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"ContentDeliveryEnabled", 0);
+    SetRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\LockScreen", L"DoNotShowLockScreenAds", 1);
+    SetRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy", L"AllowTimeline", 0);
+    SetRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"ContentDeliveryEnabled", 0);
+
+    std::wcout << L"Disabling Windows 10/11 lock screen ads\n";
+    SetRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"RotatingLockScreenEnabled", 0);
+    SetRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"RotatingLockScreenOverlayEnabled", 0);
+    SetRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"RotatingLockScreenEnabled", 0);
+    SetRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager", L"RotatingLockScreenOverlayEnabled", 0);
+
+    std::wcout << L"Disabling Windows 10/11 start menu ads\n";
+    SetRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", L"Start_IrisRecommendations", 0);
+    SetRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", L"Start_IrisRecommendations", 0);
+
+    std::wcout << L"Enabling numlock on startup\n";
+    SetRegistryValue(HKEY_CURRENT_USER, L"Control Panel\\Keyboard", L"InitialKeyboardIndicators", 2147483650);
+    SetRegistryValue(HKEY_USERS, L".DEFAULT\\Control Panel\\Keyboard", L"InitialKeyboardIndicators", 2147483650);
+
+    std::wcout << L"Adding Classic User Accounts to control panel\n";
+    SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{EDEEBE61-B85A-46B1-834B-E545EF04E947}", L"InfoTip", L"Open extra options with netplwiz");
+    SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{EDEEBE61-B85A-46B1-834B-E545EF04E947}", L"System.ControlPanel.Category", L"9");
+    SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{EDEEBE61-B85A-46B1-834B-E545EF04E947}\\DefaultIcon", L"", L"%SystemRoot%\\System32\\netplwiz.exe");
+    SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{EDEEBE61-B85A-46B1-834B-E545EF04E947}\\Shell\\Open\\command", L"", L"netplwiz.exe");
+    SetRegistryString(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ControlPanel\\NameSpace\\{EDEEBE61-B85A-46B1-834B-E545EF04E947}", L"", L"Classic User Accounts");
+
+    std::wcout << L"Adding Classic Color and Appearance to control panel\n";
+    SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{6520164E-C532-43A3-AFBE-3100A02AD7B8}", L"InfoTip", L"Change the color of your taskbar, window borders, and Start menu");
+    SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{6520164E-C532-43A3-AFBE-3100A02AD7B8}", L"System.ApplicationName", L"Microsoft.Personalization");
+    SetRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{6520164E-C532-43A3-AFBE-3100A02AD7B8}", L"System.ControlPanel.Category", 1);
+    SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{6520164E-C532-43A3-AFBE-3100A02AD7B8}", L"System.Software.TasksFileUrl", L"Internal");
+    SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{6520164E-C532-43A3-AFBE-3100A02AD7B8}\\DefaultIcon", L"", L"%SystemRoot%\\System32\\imageres.dll,-197");
+    SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{6520164E-C532-43A3-AFBE-3100A02AD7B8}\\Shell\\Open\\command", L"", L"explorer shell:::{ED834ED6-4B5A-4bfe-8F11-A626DCB6A921} -Microsoft.Personalization\\pageColorization");
+    SetRegistryString(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ControlPanel\\NameSpace\\{6520164E-C532-43A3-AFBE-3100A02AD7B8}", L"", L"Color and Appearance");
+
+    std::wcout << L"Adding Desktop Background  to control panel\n";
+    SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{EF8B3A34-C604-472B-A54D-E6A45FE0DC9D}", L"InfoTip", L"Choose your desktop background");
+    SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{EF8B3A34-C604-472B-A54D-E6A45FE0DC9D}", L"System.ApplicationName", L"Microsoft.Personalization");
+    SetRegistryValue(HKEY_CLASSES_ROOT, L"CLSID\\{EF8B3A34-C604-472B-A54D-E6A45FE0DC9D}", L"System.ControlPanel.Category", 1);
+    SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{EF8B3A34-C604-472B-A54D-E6A45FE0DC9D}", L"System.Software.TasksFileUrl", L"Internal");
+    SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{EF8B3A34-C604-472B-A54D-E6A45FE0DC9D}\\DefaultIcon", L"", L"%SystemRoot%\\System32\\imageres.dll,-5346");
+    SetRegistryString(HKEY_CLASSES_ROOT, L"CLSID\\{EF8B3A34-C604-472B-A54D-E6A45FE0DC9D}\\Shell\\Open\\command", L"", L"explorer shell:::{ED834ED6-4B5A-4bfe-8F11-A626DCB6A921} -Microsoft.Personalization\\pageWallpaper");
+    SetRegistryString(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ControlPanel\\NameSpace\\{EF8B3A34-C604-472B-A54D-E6A45FE0DC9D}", L"", L"Desktop Background");
+
+    std::wcout << L"Removing -shortcut from new shortcuts\n";
+    BYTE linkData[] = { 0x00, 0x00, 0x00, 0x00 };  // Set to 00 00 00 00
+    SetRegistryBinaryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Explorer", L"link", linkData, sizeof(linkData));
 
     std::wcout << L"Finished optimization.\n";
 }
