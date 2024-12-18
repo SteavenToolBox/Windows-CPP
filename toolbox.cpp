@@ -10,6 +10,8 @@
 #include "repairwindows.h"
 #include "installprograms.h"
 #include "undo.h"
+#include "updatefix.h"
+#include "uninstallapps.h"
 
 
 
@@ -56,17 +58,15 @@ void SteavenToolBoxMainMenu() {
             InstallPrograms();
         }
         else if (choice == "5") {
-            std::cout << "Fixing Windows Update..." << std::endl;
-            std::cout << "Went to fix Windows update" << std::endl; // Replace with actual fix code
-            system("pause");
+            clearScreen();
+            UpdateFix();
         }
         else if (choice == "6") {
             crackWindowsAndOffice(); // Call crack function
         }
         else if (choice == "7") {
-            std::cout << "Uninstalling apps..." << std::endl;
-            std::cout << "Went to uninstall apps" << std::endl; // Replace with actual uninstall code
-            system("pause");
+            clearScreen();
+            UninstallApps();
         }
         else if (choice == "8") {
             std::cout << "Repairing Windows..." << std::endl;

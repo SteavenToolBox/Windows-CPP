@@ -137,6 +137,8 @@
     <ClCompile Include="SteavenToolBox.cpp" />
     <ClCompile Include="toolbox.cpp" />
     <ClCompile Include="undo.cpp" />
+    <ClCompile Include="uninstallapps.cpp" />
+    <ClCompile Include="updatefix.cpp" />
     <ClCompile Include="updatewindows.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +152,8 @@
     <ClInclude Include="SteavenToolBox.h" />
     <ClInclude Include="toolbox.h" />
     <ClInclude Include="undo.h" />
+    <ClInclude Include="uninstallapps.h" />
+    <ClInclude Include="updatefix.h" />
     <ClInclude Include="updatewindows.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

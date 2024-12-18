@@ -26,6 +26,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		toolbox.h = toolbox.h
 		undo.cpp = undo.cpp
 		undo.h = undo.h
+		uninstallapps.cpp = uninstallapps.cpp
+		uninstallapps.h = uninstallapps.h
+		updatefix.cpp = updatefix.cpp
+		updatefix.h = updatefix.h
 		updatewindows.cpp = updatewindows.cpp
 		updatewindows.h = updatewindows.h
 	EndProjectSection
