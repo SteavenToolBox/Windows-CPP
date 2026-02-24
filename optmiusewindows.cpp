@@ -114,9 +114,9 @@ void OptmiuseWindows() {
     SetRegistryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", L"ShowCortanaButton", 0);
     SetRegistryValue(HKEY_USERS, L".DEFAULT\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", L"ShowCortanaButton", 0);
 
-    std::wcout << L"Hiding Task View button\n";
-    SetRegistryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", L"ShowTaskViewButton", 0);
-    SetRegistryValue(HKEY_USERS, L".DEFAULT\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", L"ShowTaskViewButton", 0);
+    std::wcout << L"Showing Task View button\n";
+    SetRegistryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", L"ShowTaskViewButton", 1);
+    SetRegistryValue(HKEY_USERS, L".DEFAULT\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", L"ShowTaskViewButton", 1);
 
     std::wcout << L"Hiding People icon\n";
     SetRegistryValue(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\\People", L"PeopleBand", 0);
@@ -537,6 +537,9 @@ void OptmiuseWindows() {
     std::wcout << L"Removing -shortcut from new shortcuts\n";
     BYTE linkData[] = { 0x00, 0x00, 0x00, 0x00 };  // Set to 00 00 00 00
     SetRegistryBinaryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Explorer", L"link", linkData, sizeof(linkData));
+
+    std::wcout << L"Setting Setup Region to EU (Germany)\n";
+    SetRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Control Panel\\DeviceRegion", L"droid", 0x5E);
 
     std::wcout << L"Finished optimization.\n";
 }
