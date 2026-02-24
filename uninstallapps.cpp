@@ -29,7 +29,7 @@ void UninstallApps() {
             system("powershell -Command \"Set - ExecutionPolicy Bypass - Scope CurrentUser - Force\"");
             system("powershell -Command \"Set-ExecutionPolicy Bypass -Scope CurrentUser -Force\"");
             system("powershell -Command \"Add-MpPreference -ExclusionPath 'C:\\Windows\\Temp\\Remove-Edge.exe'\"");
-            system("powershell -Command \"Invoke-WebRequest -Uri https://github.com/ShadowWhisperer/Remove-MS-Edge/blob/main/Remove-Edge.exe?raw=true -OutFile C:\\Windows\\Temp\\Remove-Edge.exe\"");
+            system("powershell -Command \"Invoke-WebRequest -Uri https://github.com/ShadowWhisperer/Remove-MS-Edge/releases/latest/download/Remove-Edge.exe -OutFile C:\\Windows\\Temp\\Remove-Edge.exe\"");
             system("powershell -Command \"Start-Process 'C:\\Windows\\Temp\\Remove-Edge.exe' -Verb RunAs -Wait\"");
             system("powershell -Command \"Remove-Item C:\\Windows\\Temp\\Remove-Edge.exe\"");
             system("powershell -Command \"Remove-MpPreference -ExclusionPath 'C:\\Windows\\Temp\\Remove-Edge.exe'\"");
