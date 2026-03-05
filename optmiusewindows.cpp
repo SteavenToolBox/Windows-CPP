@@ -5,7 +5,6 @@
 #include "music.h"
 
 void OptmiuseWindows() {
-    Music::stop();
     Music::play(GetExeDirectory() + "\\fm-love.mp3", true);
     std::wcout << L"Disabling Web Search and Cortana\n";
     SetRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search", L"AllowCortana", 0);

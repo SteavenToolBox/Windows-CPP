@@ -20,7 +20,6 @@ void SteavenToolBoxMainMenu() {
 
     do {
         std::system("color 07");
-        Music::stop();
         Music::play(GetExeDirectory() + "\\ATTCopilot.mp3", true);
         clearScreen();
         std::cout << "=======================================================================" << std::endl;
