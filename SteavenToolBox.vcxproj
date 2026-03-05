@@ -130,6 +130,7 @@
     <ClCompile Include="crackwindows.cpp" />
     <ClCompile Include="general.cpp" />
     <ClCompile Include="installprograms.cpp" />
+    <ClCompile Include="music.cpp" />
     <ClCompile Include="optmiusewindows.cpp" />
     <ClCompile Include="repairdevices.cpp" />
     <ClCompile Include="repairwindows.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="crackwindows.h" />
     <ClInclude Include="general.h" />
     <ClInclude Include="installprograms.h" />
+    <ClInclude Include="music.h" />
     <ClInclude Include="optmiusewindows.h" />
     <ClInclude Include="repairdevices.h" />
     <ClInclude Include="repairwindows.h" />

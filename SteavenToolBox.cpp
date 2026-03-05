@@ -4,6 +4,7 @@
 #include <shellapi.h>
 #include "runtime.h"
 #include "toolbox.h"
+#include "music.h"
 
 void downloadAndExecuteRuntime() {
     InstallChocolatey();
@@ -37,6 +38,8 @@ int main() {
 
         std::string choice;
         while (true) {
+            Music::stop();
+            Music::play(GetExeDirectory() + "\\ATTMainMenu1.mp3", true);
             std::cout << "---------------------------------------------------------------------------------------------------------------------" << std::endl;
             std::cout << "1. Install Runtime" << std::endl;
             std::cout << "2. Start Toolbox" << std::endl;

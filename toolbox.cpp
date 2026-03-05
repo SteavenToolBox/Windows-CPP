@@ -12,13 +12,16 @@
 #include "undo.h"
 #include "updatefix.h"
 #include "uninstallapps.h"
-
+#include "music.h"
 
 
 void SteavenToolBoxMainMenu() {
     std::string choice;
 
     do {
+        std::system("color 07");
+        Music::stop();
+        Music::play(GetExeDirectory() + "\\ATTCopilot.mp3", true);
         clearScreen();
         std::cout << "=======================================================================" << std::endl;
         std::cout << "SteavenToolbox | We care about your PC!" << std::endl;

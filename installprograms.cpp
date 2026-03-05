@@ -2,8 +2,11 @@
 #include <cstdlib>
 #include <string>
 #include "steaventoolbox.h"
+#include "music.h"
 
 void displayMenu(const std::string& menu) {
+    Music::stop();
+    Music::play(GetExeDirectory() + "\\Romantic.mp3", true);
     std::system("cls");
     std::system("color b");
     std::cout << menu;

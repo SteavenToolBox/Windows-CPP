@@ -2,8 +2,11 @@
 #include <iostream>
 #include <string>
 #include "general.h"
+#include "music.h"
 
 void UndoWindows() {
+    Music::stop();
+    Music::play(GetExeDirectory() + "\\fm-love.mp3", true);
     std::wcout << L"Removing the disable of Web Search and Cortana\n";
     DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search", L"AllowCortana");
     DeleteRegistryValue(HKEY_LOCAL_MACHINE, L"SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search", L"AllowCloudSearch");
