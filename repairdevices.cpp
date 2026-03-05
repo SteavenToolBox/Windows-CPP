@@ -15,7 +15,7 @@ void RepairDrives() {
 
     // Initialize COM.
     hres = CoInitializeEx(0, COINIT_MULTITHREADED);
-    if (FAILED(hres)) {
+    if (FAILED(hres) && hres != RPC_E_CHANGED_MODE) {
         std::cerr << "Failed to initialize COM library." << std::endl;
         return;
     }
@@ -27,7 +27,7 @@ void RepairDrives() {
         RPC_C_IMP_LEVEL_IMPERSONATE,
         NULL, EOAC_NONE, NULL
     );
-    if (FAILED(hres)) {
+    if (FAILED(hres) && hres != RPC_E_TOO_LATE) {
         std::cerr << "Failed to initialize security." << std::endl;
         CoUninitialize();
         return;
@@ -115,7 +115,6 @@ void RepairDrives() {
 
     // Second pass: Run DEFRAG on eligible drives
     {
-        // Need to query again
         hres = pSvc->ExecQuery(
             bstr_t("WQL"),
             bstr_t("SELECT * FROM Win32_LogicalDisk"),
@@ -143,9 +142,9 @@ void RepairDrives() {
             std::wstring deviceID = vtProp.bstrVal;
             VariantClear(&vtProp);
 
-            // Now fetch associated Disk Model and MediaType
             std::wstring query = L"ASSOCIATORS OF {Win32_LogicalDisk.DeviceID='" + deviceID + L"'} WHERE AssocClass=Win32_LogicalDiskToPartition";
             IEnumWbemClassObject* pPartitionEnum = NULL;
+
             hres = pSvc->ExecQuery(
                 bstr_t("WQL"),
                 bstr_t(query.c_str()),
@@ -162,6 +161,7 @@ void RepairDrives() {
             ULONG uPartitionReturn = 0;
 
             HRESULT hrPartition = pPartitionEnum->Next(WBEM_INFINITE, 1, &pPartitionObj, &uPartitionReturn);
+
             if (uPartitionReturn) {
                 VARIANT vtPartition;
                 hrPartition = pPartitionObj->Get(L"DeviceID", 0, &vtPartition, 0, 0);
@@ -171,6 +171,7 @@ void RepairDrives() {
 
                 std::wstring diskQuery = L"ASSOCIATORS OF {Win32_DiskPartition.DeviceID='" + partitionID + L"'} WHERE AssocClass=Win32_DiskDriveToDiskPartition";
                 IEnumWbemClassObject* pDiskEnum = NULL;
+
                 hres = pSvc->ExecQuery(
                     bstr_t("WQL"),
                     bstr_t(diskQuery.c_str()),
@@ -181,21 +182,25 @@ void RepairDrives() {
                 if (SUCCEEDED(hres)) {
                     IWbemClassObject* pDiskObj = NULL;
                     ULONG uDiskReturn = 0;
+
                     HRESULT hrDisk = pDiskEnum->Next(WBEM_INFINITE, 1, &pDiskObj, &uDiskReturn);
+
                     if (uDiskReturn) {
                         VARIANT vtModel, vtMediaType;
+
                         hrDisk = pDiskObj->Get(L"Model", 0, &vtModel, 0, 0);
                         hrDisk = pDiskObj->Get(L"MediaType", 0, &vtMediaType, 0, 0);
 
                         std::wstring model = vtModel.bstrVal;
                         std::wstring mediaType = vtMediaType.bstrVal;
+
                         VariantClear(&vtModel);
                         VariantClear(&vtMediaType);
 
                         if (model != L"Red Hat VirtIO SCSI Disk Device" && mediaType != L"SSD") {
                             std::wcout << L"Running DEFRAG on " << deviceID << std::endl;
-                            std::wstring defragCommand = L"defrag " + deviceID + L"\\ /O";
 
+                            std::wstring defragCommand = L"defrag " + deviceID + L"\\ /O";
                             runCommand(defragCommand);
                         }
                         else {
@@ -204,13 +209,17 @@ void RepairDrives() {
 
                         pDiskObj->Release();
                     }
+
                     pDiskEnum->Release();
                 }
+
                 pPartitionObj->Release();
             }
+
             pPartitionEnum->Release();
             pclsObj->Release();
         }
+
         pEnumerator->Release();
     }
 
