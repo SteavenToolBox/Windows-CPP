@@ -15,7 +15,7 @@ void UpdateWindowsUsingTopgrade() {
         SHELLEXECUTEINFOW sei = { sizeof(sei) };
         sei.lpVerb = L"runas";
         sei.lpFile = L"powershell.exe";
-        sei.lpParameters = L"topgrade";
+        sei.lpParameters = L"-NoProfile -ExecutionPolicy Bypass -Command \"topgrade\"";
         sei.hwnd = NULL;
         sei.nShow = SW_NORMAL;
 

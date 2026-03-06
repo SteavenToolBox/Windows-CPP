@@ -26,22 +26,22 @@ void UninstallApps() {
 
         if (choice == "1") {
             std::cout << "Uninstalling Microsoft Edge...\n";
-            system("powershell -Command \"Set - ExecutionPolicy Bypass - Scope CurrentUser - Force\"");
-            system("powershell -Command \"Set-ExecutionPolicy Bypass -Scope CurrentUser -Force\"");
-            system("powershell -Command \"Add-MpPreference -ExclusionPath 'C:\\Windows\\Temp\\Remove-Edge.exe'\"");
-            system("powershell -Command \"Invoke-WebRequest -Uri https://github.com/ShadowWhisperer/Remove-MS-Edge/releases/latest/download/Remove-Edge.exe -OutFile C:\\Windows\\Temp\\Remove-Edge.exe\"");
-            system("powershell -Command \"Start-Process 'C:\\Windows\\Temp\\Remove-Edge.exe' -Verb RunAs -Wait\"");
-            system("powershell -Command \"Remove-Item C:\\Windows\\Temp\\Remove-Edge.exe\"");
-            system("powershell -Command \"Remove-MpPreference -ExclusionPath 'C:\\Windows\\Temp\\Remove-Edge.exe'\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Set - ExecutionPolicy Bypass - Scope CurrentUser - Force\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Set-ExecutionPolicy Bypass -Scope CurrentUser -Force\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Add-MpPreference -ExclusionPath 'C:\\Windows\\Temp\\Remove-Edge.exe'\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Invoke-WebRequest -Uri https://github.com/ShadowWhisperer/Remove-MS-Edge/releases/latest/download/Remove-Edge.exe -OutFile C:\\Windows\\Temp\\Remove-Edge.exe\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Start-Process 'C:\\Windows\\Temp\\Remove-Edge.exe' -Verb RunAs -Wait\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-Item C:\\Windows\\Temp\\Remove-Edge.exe\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-MpPreference -ExclusionPath 'C:\\Windows\\Temp\\Remove-Edge.exe'\"");
             system("pause");
         }
         else if (choice == "2") {
             std::cout << "Uninstalling Microsoft OneDrive...\n";
-            system("powershell -Command \"Set - ExecutionPolicy Bypass - Scope CurrentUser - Force\"");
-            system("powershell -Command \"Set-ExecutionPolicy Bypass -Scope CurrentUser -Force\"");
-            system("powershell -Command \"Invoke-WebRequest -Uri https://github.com/SteavenToolBox/Windows/raw/main/Scripts/onedrive-uninstaller.cmd  -OutFile C:\\Windows\\Temp\\onedrive-uninstaller.cmd\"");
-            system("powershell -Command \"C:\\Windows\\Temp\\onedrive-uninstaller.cmd\"");
-            system("powershell -Command \"Remove-Item C:\\Windows\\Temp\\onedrive-uninstaller.cmd\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Set - ExecutionPolicy Bypass - Scope CurrentUser - Force\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Set-ExecutionPolicy Bypass -Scope CurrentUser -Force\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Invoke-WebRequest -Uri https://github.com/SteavenToolBox/Windows/raw/main/Scripts/onedrive-uninstaller.cmd  -OutFile C:\\Windows\\Temp\\onedrive-uninstaller.cmd\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"C:\\Windows\\Temp\\onedrive-uninstaller.cmd\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-Item C:\\Windows\\Temp\\onedrive-uninstaller.cmd\"");
             system("pause");
         }
         else if (choice == "3") {
@@ -49,12 +49,12 @@ void UninstallApps() {
             SetRegistryValue(HKEY_CURRENT_USER, L"Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", L"TaskbarMn", 0);
             SetRegistryValue(HKEY_USERS, L".DEFAULT\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", L"TaskbarMn", 0);
             std::cout << "Uninstalling Microsoft Teams...\n";
-            ExecuteCommand(L"powershell -command \"Get-AppxPackage MicrosoftTeams* | Remove-AppxPackage\"");
+            ExecuteCommand(L"powershell -NoProfile -ExecutionPolicy Bypass -Command \"Get-AppxPackage MicrosoftTeams* | Remove-AppxPackage\"");
             system("pause");
         }
         else if (choice == "4") {
             std::cout << "Disabling Windows Media Player (Legacy)...\n";
-            system("powershell -Command \"DISM /online /disable-feature /featurename:WindowsMediaPlayer");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"DISM /online /disable-feature /featurename:WindowsMediaPlayer");
             system("pause");
         }
         else if (choice == "5") {
@@ -73,7 +73,7 @@ void UninstallApps() {
             std::cout << "Hiding Cortana From Taskbar...\n";
             SetRegistryValue(HKEY_USERS, L".DEFAULT\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", L"ShowCortanaButton", 0);
             std::cout << "Uninstalling Cortana...\n";
-            ExecuteCommand(L"powershell -command \"Get-AppxPackage Microsoft.549981C3F5F10 | Remove-AppxPackage\"");
+            ExecuteCommand(L"powershell -NoProfile -ExecutionPolicy Bypass -Command \"Get-AppxPackage Microsoft.549981C3F5F10 | Remove-AppxPackage\"");
             system("pause");
         }
         else if (choice == "0") {

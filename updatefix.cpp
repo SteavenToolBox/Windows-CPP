@@ -31,11 +31,11 @@ void UpdateFix() {
 
         if (choice == "1") {
             std::cout << "Applying bypass for Windows 11 on unsupported devices...\n";
-            system("powershell -Command \"Set - ExecutionPolicy Bypass - Scope CurrentUser - Force\"");
-            system("powershell -Command \"Set-ExecutionPolicy Bypass -Scope CurrentUser -Force\"");
-            system("powershell -Command \"Invoke-WebRequest -Uri https://github.com/AveYo/MediaCreationTool.bat/raw/main/bypass11/Skip_TPM_Check_on_Dynamic_Update.cmd -OutFile C:\\Windows\\Temp\\Skip_TPM_Check_on_Dynamic_Update.cmd\"");
-            system("powershell -Command \"C:\\Windows\\Temp\\Skip_TPM_Check_on_Dynamic_Update.cmd\"");
-            system("powershell -Command \"Remove-Item C:\\Windows\\Temp\\Skip_TPM_Check_on_Dynamic_Update.cmd\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Set - ExecutionPolicy Bypass - Scope CurrentUser - Force\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Set-ExecutionPolicy Bypass -Scope CurrentUser -Force\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Invoke-WebRequest -Uri https://github.com/AveYo/MediaCreationTool.bat/raw/main/bypass11/Skip_TPM_Check_on_Dynamic_Update.cmd -OutFile C:\\Windows\\Temp\\Skip_TPM_Check_on_Dynamic_Update.cmd\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"C:\\Windows\\Temp\\Skip_TPM_Check_on_Dynamic_Update.cmd\"");
+            system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-Item C:\\Windows\\Temp\\Skip_TPM_Check_on_Dynamic_Update.cmd\"");
         }
         else if (choice == "2") {
             std::cout << "Setting TargetReleaseVersion to 24H2...\n";

@@ -46,11 +46,11 @@ void InstallChocolatey() {
     std::cout << "Checking if Chocolatey is installed..." << std::endl;
     if (system("choco -v >nul 2>&1") != 0) {
         std::cout << "Chocolatey is not installed. Installing Chocolatey..." << std::endl;\
-        system("powershell -Command \"Set - ExecutionPolicy Bypass - Scope CurrentUser - Force\"");
-        system("powershell -Command \"Set-ExecutionPolicy Bypass -Scope CurrentUser -Force\"");
-        system("powershell -Command \"Invoke-WebRequest -Uri https://chocolatey.org/install.ps1 -OutFile C:\\Windows\\Temp\\chocolatey-installer.ps1\"");
-        system("powershell -Command \"C:\\Windows\\Temp\\chocolatey-installer.ps1\"");
-        system("powershell -Command \"Remove-Item C:\\Windows\\Temp\\chocolatey-installer.ps1\"");
+        system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Set - ExecutionPolicy Bypass - Scope CurrentUser - Force\"");
+        system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Set-ExecutionPolicy Bypass -Scope CurrentUser -Force\"");
+        system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Invoke-WebRequest -Uri https://chocolatey.org/install.ps1 -OutFile C:\\Windows\\Temp\\chocolatey-installer.ps1\"");
+        system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"C:\\Windows\\Temp\\chocolatey-installer.ps1\"");
+        system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-Item C:\\Windows\\Temp\\chocolatey-installer.ps1\"");
         system("choco feature enable -n=allowGlobalConfirmation -y");
     }
     else {
@@ -83,19 +83,19 @@ void InstallScoop() {
     std::cout << "Checking if Scoop is installed..." << std::endl;
     if (system("scoop -v >nul 2>&1") != 0) {
         std::cout << "Scoop is not installed. Installing Scoop..." << std::endl;
-        system("powershell -Command \"Set - ExecutionPolicy Bypass - Scope CurrentUser - Force\"");
-        system("powershell -Command \"Set-ExecutionPolicy Bypass -Scope CurrentUser -Force\"");
-        system("powershell -Command \"Invoke-WebRequest -Uri https://get.scoop.sh -OutFile C:\\Windows\\Temp\\get.scoop.ps1\"");
-        system("powershell -Command \"C:\\Windows\\Temp\\get.scoop.ps1 -RunAsAdmin\"");
-        system("powershell -Command \"Remove-Item C:\\Windows\\Temp\\get.scoop.ps1\"");
+        system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Set - ExecutionPolicy Bypass - Scope CurrentUser - Force\"");
+        system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Set-ExecutionPolicy Bypass -Scope CurrentUser -Force\"");
+        system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Invoke-WebRequest -Uri https://get.scoop.sh -OutFile C:\\Windows\\Temp\\get.scoop.ps1\"");
+        system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"C:\\Windows\\Temp\\get.scoop.ps1 -RunAsAdmin\"");
+        system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"Remove-Item C:\\Windows\\Temp\\get.scoop.ps1\"");
     }
     else {
         std::cout << "scoop is already installed." << std::endl;
     }
 
-    system("powershell -Command \"scoop install git\"");
-    system("powershell -Command \"scoop bucket add extras\"");
-    system("powershell -Command \"scoop install aria2 wget git grep gsudo\"");
+    system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"scoop install git\"");
+    system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"scoop bucket add extras\"");
+    system("powershell -NoProfile -ExecutionPolicy Bypass -Command \"scoop install aria2 wget git grep gsudo\"");
     std::cout << "Aria2, Wget, and Git are now installed." << std::endl;
 }
 
@@ -190,7 +190,7 @@ void InstallTopgrade() {
 
 void RuntimePowerShell() {
     // Construct the PowerShell command
-    std::string command = R"(powershell.exe -Command "irm https://github.com/SteavenToolBox/Windows-CPP/raw/main/runtime.ps1 | iex")";
+    std::string command = R"(powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "irm https://github.com/SteavenToolBox/Windows-CPP/raw/main/runtime.ps1 | iex")";
 
     // Print the command for debugging
     std::cout << "Executing command: " << command << std::endl;
