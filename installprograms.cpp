@@ -12,33 +12,56 @@ void displayMenu(const std::string& menu) {
 }
 
 void installFullRuntime() {
-    std::system("choco install vcredist2005 vcredist2008 vcredist2010 vcredist2012 msvisualcplusplus2012-redist vcredist2013 vcredist2017 vcredist140 vcredist-all adoptopenjdk8openj9jre adoptopenjdk11openj9jre directx netfx-4.8.1 -y");
     std::system("DISM /Online /Enable-Feature /FeatureName:NetFx3");
     std::system("dism /Online /enable-feature /FeatureName:\"LegacyComponents\" /All");
     std::system("dism /Online /enable-feature /FeatureName:\"DirectPlay\" /All");
+    std::system("choco install vcredist2005 vcredist2008 vcredist2010 vcredist2012 msvisualcplusplus2012-redist vcredist2013 vcredist2017 vcredist140 vcredist-all dotnet-desktopruntime dotnetcore-desktopruntime dotnet-10.0-desktopruntime dotnet-6.0-desktopruntime dotnet-8.0-desktopruntime dotnet-5.0-desktopruntime dotnet-7.0-desktopruntime dotnet-9.0-desktopruntime dotnetcore-3.1-desktopruntime dotnetcore-3.0-desktopruntime directx netfx-4.8.1 -y");
+    std::system("winget install -e --id EclipseAdoptium.Temurin.8.JRE");
+    std::system("winget install -e --id EclipseAdoptium.Temurin.11.JRE");
+    std::system("winget install -e --id EclipseAdoptium.Temurin.17.JRE");
+    std::system("winget install -e --id Amazon.Corretto.25.JDK");
+    std::system("winget install -e --id Microsoft.VCRedist.2005.x64");
+    std::system("winget install -e --id Microsoft.VCRedist.2005.x86");
+    std::system("winget install -e --id Microsoft.VCRedist.2008.x64");
+    std::system("winget install -e --id Microsoft.VCRedist.2008.x86");
+    std::system("winget install -e --id Microsoft.VCRedist.2010.x64");
+    std::system("winget install -e --id Microsoft.VCRedist.2010.x86");
+    std::system("winget install -e --id Microsoft.VCRedist.2012.x64");
+    std::system("winget install -e --id Microsoft.VCRedist.2012.x86");
+    std::system("winget install -e --id Microsoft.VCRedist.2013.x64");
+    std::system("winget install -e --id Microsoft.VCRedist.2013.x86");
+    std::system("winget install -e --id Microsoft.DotNet.DesktopRuntime.3_1");
+    std::system("winget install -e --id Microsoft.DotNet.DesktopRuntime.5");
+    std::system("winget install -e --id Microsoft.DotNet.DesktopRuntime.6");
+    std::system("winget install -e --id Microsoft.DotNet.DesktopRuntime.7");
+    std::system("winget install -e --id Microsoft.DotNet.DesktopRuntime.8");
+    std::system("winget install -e --id Microsoft.DotNet.DesktopRuntime.9");
+    std::system("winget install -e --id Microsoft.DotNet.DesktopRuntime.10");
 }
 
 void installBrowsers() {
     clearScreen();
     std::system("color b");
     std::string choice;
-    std::cout << "1. Firefox\n"
-        << "2. Chrome\n"
-        << "3. Brave\n"
-        << "4. Ungoogled Chromium\n"
-        << "5. Edge\n"
-        << "6. Thorium\n"
+    std::cout << "1. LibreWolf\n"
+        << "2. Firefox\n"
+        << "3. Chrome\n"
+        << "4. Brave\n"
+        << "5. Ungoogled Chromium\n"
+        << "6. Edge\n"
+        << "7. Thorium\n"
         << "0. Go Back\n"
         << "Type the number: ";
     std::getline(std::cin, choice);
 
     switch (std::stoi(choice)) {
-    case 1: std::system("winget install -e --id Mozilla.Firefox"); system("pause"); installBrowsers(); break;
-    case 2: std::system("winget install -e --id Google.Chrome"); system("pause"); installBrowsers(); break;
-    case 3: std::system("winget install -e --id BraveSoftware.BraveBrowser"); system("pause"); installBrowsers(); break;
-    case 4: std::system("winget install -e --id eloston.ungoogled-chromium"); system("pause"); installBrowsers(); break;
-    case 5: std::system("winget install -e --id Microsoft.Edge"); system("pause"); installBrowsers(); break;
-    case 6: std::system("winget install -e --id EDRLab.Thorium"); system("pause"); installBrowsers(); break;
+    case 1: std::system("winget install -e --id LibreWolf.LibreWolf"); system("pause"); installBrowsers(); break;
+    case 2: std::system("winget install -e --id Mozilla.Firefox"); system("pause"); installBrowsers(); break;
+    case 3: std::system("winget install -e --id Google.Chrome"); system("pause"); installBrowsers(); break;
+    case 4: std::system("winget install -e --id BraveSoftware.BraveBrowser"); system("pause"); installBrowsers(); break;
+    case 5: std::system("winget install -e --id eloston.ungoogled-chromium"); system("pause"); installBrowsers(); break;
+    case 6: std::system("winget install -e --id Microsoft.Edge"); system("pause"); installBrowsers(); break;
+    case 7: std::system("winget install -e --id EDRLab.Thorium"); system("pause"); installBrowsers(); break;
     case 0: return;
     default: std::cout << "Invalid choice, try again\n"; system("pause"); installBrowsers(); break;
     }
